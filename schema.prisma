@@ -556,3 +556,17 @@ model LiteLLM_HealthCheckTable {
   @@index([checked_at])
   @@index([status])
 }
+
+model LiteLLM_AutoRouterLogs {
+  auto_router_log_id String   @id @default(uuid())
+  prompt             String?
+  response           String?
+  duration           Float?
+  model              String?
+  cluster_id         String?
+  routing_decision   Json?    @default("{}") // optional: store the auto_router_decision payload if available
+  created_at         DateTime @default(now())
+
+  @@index([created_at])
+  @@map("auto_router_logs")
+}
