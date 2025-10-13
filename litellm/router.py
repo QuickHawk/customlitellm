@@ -5069,6 +5069,16 @@ class Router:
             )
         self.auto_routers[deployment.model_name] = autor_router
 
+        try:
+            import litellm
+
+            if autor_router not in litellm.callbacks:
+                litellm.callbacks.append(autor_router)
+
+            litellm.logging_callback_manager.add_litellm_callback(autor_router)
+        except Exception:
+            verbose_router_logger.exception("Failed to add autorouter as callback")
+
     def deployment_is_active_for_environment(self, deployment: Deployment) -> bool:
         """
         Function to check if a llm deployment is active for a given environment. Allows using the same config.yaml across multople environments
