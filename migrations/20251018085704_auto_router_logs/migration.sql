@@ -533,6 +533,7 @@ CREATE TABLE "auto_router_logs" (
     "response" TEXT,
     "duration" DOUBLE PRECISION,
     "model" TEXT,
+    "cluster_id" TEXT,
     "routing_decision" JSONB DEFAULT '{}',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

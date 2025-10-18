@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from litellm._logging import verbose_router_logger
 from litellm.integrations.custom_logger import CustomLogger
 from litellm.router_strategy.auto_router.template_router import TemplateRouter
+from litellm.router_strategy.auto_router.base_template_router import BaseTemplateRouter
 
 import os
 
@@ -108,7 +109,7 @@ class AutoRouter(CustomLogger):
         self.embedding_model: str = embedding_model
         self.litellm_router_instance: "Router" = litellm_router_instance
 
-        self.template_routelayer: Optional[TemplateRouter] = TemplateRouter(
+        self.template_routelayer: Optional[BaseTemplateRouter] = TemplateRouter(
             persistence_file=os.path.join("router_templates", f"{model_name}_template_router.bin"),
             metadata_file=os.path.join("router_templates", f"{model_name}_template_router_metadata.pkl"),
         )
@@ -232,8 +233,8 @@ class AutoRouter(CustomLogger):
             
             # Log the information
             verbose_router_logger.info("=== AutoRouter Callback - Success Event ===")
-            verbose_router_logger.info(f"Prompt: {prompt}")
-            verbose_router_logger.info(f"Response: {response_content}")
+            # verbose_router_logger.info(f"Prompt: {prompt}")
+            # verbose_router_logger.info(f"Response: {response_content}")
             verbose_router_logger.info(f"Model: {kwargs.get('model', 'unknown')}")
             verbose_router_logger.info(f"Duration: {end_time - start_time if end_time and start_time else 'unknown'}")
             verbose_router_logger.info("==========================================")

@@ -2,8 +2,9 @@ import pickle
 from typing import Dict, Any, List, Optional
 from drain3 import TemplateMiner
 from drain3.file_persistence import FilePersistence
+from .base_template_router import BaseTemplateRouter
 
-class TemplateRouter:
+class TemplateRouter(BaseTemplateRouter):
     """
     A template-based router for LiteLLM that uses drain3 for prompt clustering.
     Designed to replace SemanticRouter with similar function signatures.
